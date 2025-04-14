@@ -10,6 +10,8 @@ async function createBlog(db, title, content, authorId) {
   
   async function getAllBlogs(db) {
     return db.collection('blogs').find().toArray();
+
+    
   }
   
   async function updateBlog(db, blogId, updatedData) {
