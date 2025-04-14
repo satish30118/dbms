@@ -10,14 +10,18 @@ db.run(`CREATE TABLE IF NOT EXISTS blogs (
 )`);
 
 // Create a new blog
-const createBlog = (title, content, authorId, callback) => {
-  db.run(
-    `INSERT INTO blogs (title, content, author_id) VALUES (?, ?, ?)`,
-    [title, content, authorId],
-    function (err) {
-      callback(err, this.lastID);
-    }
-  );
+const createBlog = (title, content, authorId) => {
+  return new Promise((resolve, reject) => {
+    db.run(
+      `INSERT INTO blogs (title, content, author_id) VALUES (?, ?, ?)`,
+      [title, content, authorId],
+      function (err) {
+        if (err) reject(err)
+        resolve(this.lastID)
+      }
+    );
+  })
+
 };
 
 // Get all blogs
